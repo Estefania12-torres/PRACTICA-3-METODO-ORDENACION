@@ -12,7 +12,7 @@ import modelo.Pasajero;
 
 /**
  *
- * @author Estefania
+ * @author Usuario
  */
 public class ModeloTablaPasajero extends AbstractTableModel{
     //Lista del Objeto Pasajeros

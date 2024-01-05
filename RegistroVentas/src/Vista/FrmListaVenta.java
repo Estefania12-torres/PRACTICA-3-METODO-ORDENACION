@@ -15,8 +15,6 @@ import Controlador.dao.Implements.ControlPasajero;
 import Controlador.dao.Implements.ControlVenta;
 import Vista.Tabla.ModeloTablaBoleto;
 import Vista.Tabla.ModeloTablaVentas;
-import java.awt.HeadlessException;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -25,56 +23,74 @@ import modelo.Venta;
 
 /**
  *
- * @author Estefania
+ * @author Usuario
  */
 public class FrmListaVenta extends javax.swing.JFrame {
 
-    public FrmListaVenta(ControlVenta controlVenta, ControlPasajero controlPasajero) throws EmptyException {
-        initComponents();       
+    //txtTotalBoleto.setText(Double.toString(controlVenta.getVenta().getTotal_Boleto()));
+    //txtMonto_Total.setText(Double.toString(montoTotal()));
+    
+    public FrmListaVenta(ControlVenta controlVenta) throws EmptyException {
+        initComponents();
         this.controlVenta = controlVenta;
-        this.controlPasajero = controlPasajero;
-        cargarVentas();
-        txtTotalBoleto.setText(Double.toString(controlVenta.getVenta().getTotal_Boleto()));
-        txtMonto_Total.setText(Double.toString(montoTotal()));
+        cargarVista();
         
-
+        //txtTotalBoleto.setText(Double.toString(controlVenta.getVenta().getTotal_Boleto()));
+        //txtMonto_Total.setText(Double.toString(montoTotal()));
+        
+        //txtTotalBoleto.setText(String.valueOf(controlVenta.getVenta().getTotal_Boleto()));
+        //txtMonto_Total.setText(String.valueOf(montoTotal()));
+        
+        // Carga las ventas al inicializar la ventana
     }
     private ModeloTablaVentas mtv = new ModeloTablaVentas();
-    private  ControlBoleto controlBoleto = new ControlBoleto();
-    private final ControlPasajero controlPasajero;
-    private final ControlVenta controlVenta;
+    private ControlBoleto controlBoleto = new ControlBoleto();
+    private ControlPasajero controlPasajero = new ControlPasajero();
+    private ControlVenta controlVenta = new ControlVenta();
 
     public void cargarVentas() {
         mtv.setVentas(controlVenta.getVentas());
         Tabla3.setModel(mtv);
         Tabla3.updateUI();
     }
+         private void cargarVista(){
+        int fila = Tabla3.getSelectedRow();
+            try {
+               
+                //controlVenta.setVenta(mtv.getVentas().getInfo(fila));
+                txtTotalBoleto.setText(String.valueOf(controlVenta.getVenta().getTotal_Boleto()));
+                txtMonto_Total.setText(String.valueOf(montoTotal()));
+            } catch (Exception ex) {
+                Logger.getLogger(FrmListaVenta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    
+    
 
     public Boolean verificar() {
         return (!txtnum_Venta.getText().trim().isEmpty()
                 && !txtfecha_Compra.getText().trim().isEmpty());
-               }
+    }
 
     private void guardar() throws EmptyException {
         if (verificar()) {
-            try {
-                controlVenta.getVenta().setNum_Venta(txtnum_Venta.getText());
-                controlVenta.getVenta().setFecha(txtfecha_Compra.getText());
-                controlVenta.getVenta().setTotal_Boleto(Double.valueOf(txtTotalBoleto.getText()));
-                controlVenta.getVenta().setMonto_Total(Double.valueOf(txtMonto_Total.getText()));
-                controlVenta.getVenta().setId_pasajero(controlPasajero.getPasajero().getId());
 
-                if (controlVenta.persist()) {
-                    
-                    JOptionPane.showMessageDialog(null, "Datos guardados");
-                    limpiar();
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
-                }
-            } catch (HeadlessException | NumberFormatException ex) {
-                JOptionPane.showConfirmDialog(null, ex, "Error", JOptionPane.ERROR_MESSAGE);
-                System.out.println(ex.getMessage());
-                throw new RuntimeException(ex);
+            controlVenta.getVenta().setNum_Venta(txtnum_Venta.getText());
+            controlVenta.getVenta().setFecha(txtfecha_Compra.getText());
+            controlVenta.getVenta().setTotal_Boleto(Double.valueOf(txtTotalBoleto.getText()));
+            controlVenta.getVenta().setMonto_Total(Double.valueOf(txtMonto_Total.getText()));
+            if (controlVenta.persist()) {
+                JOptionPane.showMessageDialog(null, "Datos guardados");
+                controlVenta.getVenta().setMonto_Total(montoTotal());
+                 controlVenta.persist();
+                 controlVenta.persist(controlVenta.getVenta());
+                //ControlVenta controlVenta = new ControlVenta();
+                //controlVenta.persist(controlVenta.getVenta());
+                cargarVentas();
+
+                limpiar();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo guardar, hubo un error");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Falta llenar campos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -84,6 +100,7 @@ public class FrmListaVenta extends javax.swing.JFrame {
     private void limpiar() {
         txtnum_Venta.setText("");
         txtfecha_Compra.setText("");
+
         cargarVentas();
     }
 
@@ -97,7 +114,6 @@ public class FrmListaVenta extends javax.swing.JFrame {
         System.out.println(total);
         return total;
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -248,14 +264,13 @@ public class FrmListaVenta extends javax.swing.JFrame {
                                 .addComponent(txtTotalBoleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(22, 22, 22)
                                 .addComponent(btnGuardar)))))
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAgregarNuevaVenta))
+                .addGap(3, 3, 3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
                     .addComponent(txtMonto_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAgregarNuevaVenta)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -266,7 +281,7 @@ public class FrmListaVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_txtfecha_CompraActionPerformed
 
     private void txtTotalBoletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalBoletoActionPerformed
-
+    
     }//GEN-LAST:event_txtTotalBoletoActionPerformed
 
     private void txtnum_VentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnum_VentaActionPerformed
@@ -274,7 +289,7 @@ public class FrmListaVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnum_VentaActionPerformed
 
     private void txtMonto_TotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMonto_TotalActionPerformed
-
+      
 
     }//GEN-LAST:event_txtMonto_TotalActionPerformed
 
@@ -290,19 +305,19 @@ public class FrmListaVenta extends javax.swing.JFrame {
         FrmListaVenta frmListaVenta = null;
 
         FrmVentaBoleto frm = null;
-          try {
-        frm = new FrmVentaBoleto();
+        try {
+            frm = new FrmVentaBoleto();
+        } catch (EmptyException ex) {
+            Logger.getLogger(FrmListaVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         frm.setVisible(true);
-    } catch (EmptyException ex) {
-        Logger.getLogger(FrmListaVenta.class.getName()).log(Level.SEVERE, null, ex);
-    }
 
     }//GEN-LAST:event_btnAgregarNuevaVentaActionPerformed
 
     /**
      * @param args the command line arguments
      */
- 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabla3;

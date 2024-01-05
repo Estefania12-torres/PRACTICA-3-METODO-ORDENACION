@@ -12,27 +12,22 @@ import modelo.Venta;
 
 /**
  *
- * @author Estefania
+ * @author Usuario
  */
-public class ControlVenta extends DaoImplements<Venta> {
-
-    private ListaEnlazada<Venta> ventas = new ListaEnlazada<>();
-    private Venta venta = new Venta();
-
-    public ControlVenta() {
-        super(Venta.class);
+public class ControlVenta extends DaoImplements<Venta>{
+    private ListaEnlazada<Venta> ventas=new ListaEnlazada<>();
+    private Venta venta=new Venta();
+    
+     public ControlVenta() {
+        super(  Venta.class);
     }
-
-    /*public ControlVenta(Venta venta, Class<Venta> clazz) {
+    public ControlVenta(Class<Venta> clazz) {
         super(clazz);
         this.venta = venta;
 
-    }*/
+    }
 
     public ListaEnlazada<Venta> getVentas() {
-        if (ventas.isEmpty()) {
-            ventas = this.all();
-        }
         return ventas;
     }
 
@@ -41,21 +36,26 @@ public class ControlVenta extends DaoImplements<Venta> {
     }
 
     public Venta getVenta() {
-        if (venta == null) {
+        if (venta == null)
             venta = new Venta();
-        }
+        
         return venta;
     }
 
     public void setVenta(Venta venta) {
         this.venta = venta;
     }
-
-    public Boolean persist() {
-        venta.setId(all().getLength() + 1);
+       public Boolean persist(){
+        venta.setId(all().getLength()+1);
         return persist(venta);
     }
+       
+    
+       
+}
+       
+    
+    
     
     
 
-}

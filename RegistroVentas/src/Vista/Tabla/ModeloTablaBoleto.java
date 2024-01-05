@@ -11,7 +11,7 @@ import modelo.Pasajero;
 
 /**
  *
- * @author Estefania
+ * @author Usuario
  */
 public class ModeloTablaBoleto extends AbstractTableModel{
     private ListaEnlazada <Boleto> boletos ;
@@ -68,21 +68,21 @@ public class ModeloTablaBoleto extends AbstractTableModel{
     public String getColumnName(int column) {
         switch (column) {
             case 0:
-                return "Id";
+                return "ID";
             case 1:
-                return "Numero Boleto";
+                return "NUMERO BOLETO";
             case 2:
-                return "Usuario";
+                return "USUARIO";
             case 3:
-                return "Asiento";
+                return "ASIENTO";
             case 4:
-                return "Lugar Origen";
+                return "LUGAR ORIGEN";
             case 5:
-                return "Lugar Destino";
+                return "LUGAR DESTINO";
             case 6:
-                return "Cantidad";
+                return "CANTIDAD";
             case 7:
-                return "Valor";
+                return "VALOR";
             
             default:
                 return null;

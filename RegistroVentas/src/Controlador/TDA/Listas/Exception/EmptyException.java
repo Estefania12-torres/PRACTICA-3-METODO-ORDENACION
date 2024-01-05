@@ -11,7 +11,6 @@ package Controlador.TDA.Listas.Exception;
 public class EmptyException extends Exception{
     //constructor Excpetion
     public EmptyException(String error_Lista_vacia) {
-        super(error_Lista_vacia);
     }
     
     

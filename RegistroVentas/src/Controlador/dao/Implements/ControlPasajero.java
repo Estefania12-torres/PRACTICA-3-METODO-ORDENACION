@@ -14,7 +14,7 @@ import modelo.Pasajero;
 
 /**
  *
- * @author Estefania
+ * @author Usuario
  *
  */
 public class ControlPasajero extends DaoImplements<Pasajero> {
@@ -139,5 +139,9 @@ public static void main(String[] args) {
     }
     
 }
+
+
+
+
 
 }

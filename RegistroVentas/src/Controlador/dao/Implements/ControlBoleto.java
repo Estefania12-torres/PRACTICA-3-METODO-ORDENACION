@@ -15,7 +15,7 @@ import modelo.Pasajero;
 
 /**
  *
- * @author Estefania
+ * @author Usuario
  */
 public class ControlBoleto extends DaoImplements<Boleto> {
 
@@ -53,7 +53,7 @@ public class ControlBoleto extends DaoImplements<Boleto> {
     }
 
     public Boolean persist() {
-        boleto.setId(all().getLength()+1);
+        boleto.setId(all().getLength());
         return persist(boleto);
     }
 

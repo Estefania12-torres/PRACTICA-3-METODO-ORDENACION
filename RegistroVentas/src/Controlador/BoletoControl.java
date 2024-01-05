@@ -60,7 +60,12 @@ public class BoletoControl {
         this.venta = venta;
     }
   
-
+    public Double calcularTotal(Boleto boleto){
+        Double total=0.0;
+        total = boleto.getCantidad()*boleto.getValor();
+        return total;
+        
+    } 
 
     
 }

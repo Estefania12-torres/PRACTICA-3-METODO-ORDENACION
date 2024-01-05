@@ -13,7 +13,7 @@ import modelo.Venta;
 
 /**
  *
- * @author Estefania
+ * @author Usuario
  */
 public class ModeloTablaVentas extends AbstractTableModel {
     
@@ -30,6 +30,7 @@ public class ModeloTablaVentas extends AbstractTableModel {
     @Override
     public int getRowCount() {
         return ventas.getLength();
+
     }
 
     @Override
@@ -47,11 +48,12 @@ public class ModeloTablaVentas extends AbstractTableModel {
            Venta v = ventas.getInfo(rowIndex);
 
             return switch (columnIndex) {
-                case 0 -> (v != null) ? v.getId(): "";
-                case 1 ->(v != null) ? v.getNum_Venta(): "";
-                case 2 -> (v != null) ? v.getId_pasajero(): "";
-                case 3 -> (v != null) ? v.getFecha(): "";
-                case 4 -> (v != null) ? v.getTotal_Boleto(): "";
+                case 0 -> (v != null) ? v.getNum_Venta(): "";
+                case 1 -> (v != null) ? v.getPasajero().getNombre(): "";
+                case 2 -> (v != null) ? v.getFecha(): "";
+                case 3 -> (v != null) ? v.getTotal_Boleto(): "";
+                case 4 -> (v != null) ? v.getMonto_Total(): "";
+              
                 default -> null;
             };
         }
@@ -61,16 +63,22 @@ public class ModeloTablaVentas extends AbstractTableModel {
         }
     }
     
-    
     public String getColumnName(int column) {
-        return switch (column) {
-            case 0 -> "id";
-            case 1 -> "Numero Venta";
-            case 2 -> "Usuario";
-            case 3 -> "Fecha";
-            case 4 -> "Total Boleto";
-            default -> null;
-        };
+        switch (column) {
+            case 0:
+                return "NUMERO VENTA";
+            case 1:
+                return "USUARIO";
+            case 2:
+                return "FECHA";
+            case 3:
+                return "TOTAL BOLETO";
+            case 4:
+                return "MONTO TOTAL";
+            
+            default:
+                return null;
+        }
     }
     
     }

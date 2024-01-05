@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  *
- * @author Estefania
+ * @author Usuario
  */
 public class Venta {
     private Integer id;
@@ -16,6 +16,7 @@ public class Venta {
     private Double total_Boleto;
     private String num_Venta;
     private Integer id_pasajero;
+    private Pasajero pasajero;
     private Boleto boleto;
     private Double Monto_Total;
     
@@ -26,6 +27,14 @@ public class Venta {
 
     public void setMonto_Total(Double Monto_Total) {
         this.Monto_Total = Monto_Total;
+    }
+   
+    public Pasajero getPasajero() {
+        return pasajero;
+    }
+
+    public void setPasajero(Pasajero pasajero) {
+        this.pasajero = pasajero;
     }
 
     public Boleto getBoleto() {
@@ -77,9 +86,6 @@ public class Venta {
         this.id_pasajero = id_pasajero;
     }
     
-     public String toString() {
-        return "id: " + id +"id_pasajero: " + id_pasajero + ", num_Vemta: " + num_Venta ;
-    }
     
         
 }

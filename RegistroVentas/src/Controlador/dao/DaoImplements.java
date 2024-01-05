@@ -67,7 +67,8 @@ public class DaoImplements <T> implements daoInterface<T>{
         ListaEnlazada<T> dl = new ListaEnlazada<>();
         try{
             dl = (ListaEnlazada<T>) conection.fromXML(new FileReader(URL));
-        }catch (Exception e){   
+        }catch (Exception e){
+            
         }
         return dl;
     }

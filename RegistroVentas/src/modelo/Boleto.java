@@ -8,13 +8,13 @@ import java.util.Date;
 
 /**
  *
- * @author Estefania
+ * @author Usuario
  */
 public class Boleto {
     //atributos 
     private Integer id;
     private Double valor;
-    private String numero_Asiento;
+    private Integer numero_Asiento;
     private Date fecha_Compra;
     private Date fecha_Salida;
     private String lugar_Origen;
@@ -61,14 +61,13 @@ public class Boleto {
         this.valor = valor;
     }
 
-    public String getNumero_Asiento() {
+    public Integer getNumero_Asiento() {
         return numero_Asiento;
     }
 
-    public void setNumero_Asiento(String numero_Asiento) {
+    public void setNumero_Asiento(Integer numero_Asiento) {
         this.numero_Asiento = numero_Asiento;
     }
-
 
     public Date getFecha_Compra() {
         return fecha_Compra;
